@@ -22,7 +22,7 @@ $('#login_button').on('click', function(){
     success: function(data){
       // guardar token en localstorage o cookie
       localStorage.setItem('token', data.token)
-      window.location = './todo.html'
+      window.location = './calendar.html'
     },
     error: function(error_msg) {
       alert((error_msg["responseText"]))
