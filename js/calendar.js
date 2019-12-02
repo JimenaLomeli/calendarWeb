@@ -12,7 +12,6 @@ function init() {
     };
 
     loadEvents()
-    
     scheduler.load("http://calendario-back.herokuapp.com/events");
 }
 
@@ -27,6 +26,11 @@ function loadEvents() {
       dataType: 'json',
       success: function(data){
         scheduler.parse(data, "json");
+
+        var evs = scheduler.getEvents()
+        for (var i = 0; i < evs.length; i++){
+            scheduler.changeEventId(evs[i].id, evs[i]._id);
+        }
       },
       error: function(error_msg) {
         alert((error_msg['responseText']));
@@ -51,12 +55,11 @@ scheduler.attachEvent("onEventAdded", function(id, ev){
         dataType: "json",
         type: "POST",
         success: function(response){
-            scheduler.changeEventId(ev.id , response._id);
-
+            scheduler.changeEventId(id, response._id);
             alert('The appointment ' + ev.text +  " has been succesfully created");
         },
-        error:function(error){
-            alert('Error: The appointment '+ev.text+' couldnt be created');
+        error: function(error){
+            alert('Error: The appointment ' + ev.text + ' couldnt be created');
             console.log(error);
         }
     }); 
@@ -70,7 +73,7 @@ scheduler.attachEvent("onEventChanged", function(id, ev){
     };
     json_to_send = JSON.stringify(json_to_send);
     $.ajax({
-        url: 'http://calendario-back.herokuapp.com/events/' + ev._id,
+        url: 'http://calendario-back.herokuapp.com/events/' + id,
         headers: {
             'Content-Type':'application/json',
             'Authorization': 'Bearer ' + token
@@ -88,25 +91,20 @@ scheduler.attachEvent("onEventChanged", function(id, ev){
     }); 
 });
 
-scheduler.attachEvent("onConfirmedBeforeEventDelete", function(id, ev){
+scheduler.attachEvent("onEventDeleted", function(id, ev){
     $.ajax({
-        url: 'http://calendario-back.herokuapp.com/events/' + ev._id,
+        url: 'http://calendario-back.herokuapp.com/events/' + id,
         headers: {
             'Content-Type':'application/json',
             'Authorization': 'Bearer ' + token
         },
         dataType: "json",
         type: "DELETE",
-        success: function(response){
-            if (response.status == "success"){
-                if(!ev.willDeleted){
-                    alert("Appointment succesfully deleted");
-                }
-            } else if(response.status == "error"){
-                alert("Error: Cannot delete appointment");
-            }
+        success: function(response) {
+            alert("Appointment succesfully deleted");
+            scheduler.eventRemove(id);
         },
-        error:function(error){
+        error: function(error) {
             alert("Error: Cannot delete appointment: " + ev.text);
             console.log(error);
         }
