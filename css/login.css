@@ -32,7 +32,7 @@ div {
 
 .input_wrap {
   padding: 10px 0 0 0;
-  margin-bottom: 35px;
+  margin-bottom: 5px;
   border-bottom: 2px solid #adadad;
 }
 
@@ -97,4 +97,11 @@ button:hover {
 
 #container-logout {
   float: right;
+}
+.error {
+  color: #D9534E;
+}
+
+.hidden {
+  display: none;
 }
