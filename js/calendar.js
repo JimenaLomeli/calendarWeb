@@ -2,6 +2,7 @@ var token = localStorage.getItem('token');
 if (token) {
   token = token.replace(/^"(.*)"$/, '$1'); // Remove quotes from token start/end.
 }
+var cancelled = false;
 
 function init() {
     scheduler.config.date_format = "%Y-%m-%d %H:%i";
@@ -33,6 +34,7 @@ function loadEvents() {
         }
       },
       error: function(error_msg) {
+          console.log(error_msg)
         alert((error_msg['responseText']));
       }
     });
@@ -92,23 +94,32 @@ scheduler.attachEvent("onEventChanged", function(id, ev){
 });
 
 scheduler.attachEvent("onEventDeleted", function(id, ev){
-    $.ajax({
-        url: 'https://calendario-back.herokuapp.com/events/' + id,
-        headers: {
-            'Content-Type':'application/json',
-            'Authorization': 'Bearer ' + token
-        },
-        dataType: "json",
-        type: "DELETE",
-        success: function(response) {
-            alert("Appointment succesfully deleted");
-            scheduler.eventRemove(id);
-        },
-        error: function(error) {
-            alert("Error: Cannot delete appointment: " + ev.text);
-            console.log(error);
-        }
-    }); 
+    if (cancelled) {
+        cancelled = false
+    } else {
+        $.ajax({
+            url: 'https://calendario-back.herokuapp.com/events/' + id,
+            headers: {
+                'Content-Type':'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            dataType: "json",
+            type: "DELETE",
+            success: function(response) {
+                alert("Appointment succesfully deleted");
+                scheduler.eventRemove(id);
+            },
+            error: function(error) {
+                alert("Error: Cannot delete appointment: " + ev.text);
+                console.log(error);
+            }
+        });
+    }
+});
+
+scheduler.attachEvent("onEventCancel", function(id, flag){
+    console.log('Event canceled')
+    cancelled = true;
 });
 
 $('#logout_button').on('click', function(){
