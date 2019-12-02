@@ -24,7 +24,8 @@ $('#login_button').on('click', function(){
       window.location = './calendar.html'
     },
     error: function(error_msg) {
-      alert((error_msg["responseText"]))
+      console.log(error_msg)
+      // alert((error_msg["responseText"]))
     }
   })
 })
