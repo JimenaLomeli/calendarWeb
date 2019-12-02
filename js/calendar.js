@@ -113,7 +113,7 @@ scheduler.attachEvent("onEventDeleted", function(id, ev){
 
 $('#logout_button').on('click', function(){
     $.ajax({
-      url: 'http://calendario-back.herokuapp.com/logout',
+      url: 'https://calendario-back.herokuapp.com/logout',
       headers: {
           'Content-Type':'application/json',
           'Authorization': 'Bearer ' + token
