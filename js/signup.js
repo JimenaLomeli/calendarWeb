@@ -11,7 +11,7 @@ $('#signup_button').on('click', function(){
   let password_error = $('#password_error')
   let name_error = $("#name_error")
 
-  if (email === "" && !valida_email(email.value)) {
+  if (email === "" && valida_email(email.value)) {
     email_error.removeClass('hidden');
     valEmail = false
   } else {

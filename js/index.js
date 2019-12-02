@@ -8,7 +8,9 @@ $('#login_button').on('click', function(){
   let email_error = $('#email_error')
   let password_error = $('#password_error')
 
-  if (email === "" || !valida_email(email.value)) {
+  if (email === "" || valida_email(email.value)) {
+    console.log(email === "")
+    console.log(!valida_email(email.value))
     email_error.removeClass('hidden');
     valEmail = false
   } else {
