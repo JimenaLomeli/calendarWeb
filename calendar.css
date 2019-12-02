@@ -1,0 +1,46 @@
+html, body{
+    margin:4px;
+    padding:4px;
+    height:100%;
+    overflow:hidden;
+}
+
+.dhx_cal_container {
+    font-family: 'Poppins', sans-serif;
+}
+.dhx_cal_prev_button {
+    color: #91cde0;
+    transition: all 0.4s ease 0s;
+}
+
+.dhx_cal_next_button {
+    color: #91cde0;
+    transition: all 0.4s ease 0s;
+}
+
+.dhx_cal_date {
+    text-transform: uppercase;
+}
+
+.dhx_cal_header{
+    text-transform: uppercase;
+    color:#91cde0 ;
+}
+#logout_button {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    opacity: 0.50;
+    transition: all 0.4s ease 0s;
+    padding: 10px;
+    border-radius: 10%;
+}
+
+#logout_button:hover {
+    letter-spacing: 2px;
+    -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+    background: #91cde0;
+    transition: all 0.4s ease 0s;
+}
