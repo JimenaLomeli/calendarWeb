@@ -11,7 +11,7 @@ $('#signup_button').on('click', function(){
   let password_error = $('#password_error')
   let name_error = $("#name_error")
 
-  if (email === "" && valida_email(email.value)) {
+  if (email === "") {
     email_error.removeClass('hidden');
     valEmail = false
   } else {
@@ -65,8 +65,3 @@ $('#signup_button').on('click', function(){
     });
   }
 });
-
-function valida_email(email) {
-  var regexp_email = /\S+@\S+\.\S+/;
-  return regexp_email.test(email);
-}
