@@ -12,12 +12,12 @@ function init() {
     };
 
     loadEvents()
-    scheduler.load("http://calendario-back.herokuapp.com/events");
+    scheduler.load("https://calendario-back.herokuapp.com/events");
 }
 
 function loadEvents() {
     $.ajax({
-      url: 'http://calendario-back.herokuapp.com/events',
+      url: 'https://calendario-back.herokuapp.com/events',
       headers: {
           'Content-Type':'application/json',
           'Authorization': 'Bearer ' + token
@@ -46,7 +46,7 @@ scheduler.attachEvent("onEventAdded", function(id, ev){
     };
     json_to_send = JSON.stringify(json_to_send);
     $.ajax({
-        url: 'http://calendario-back.herokuapp.com/events',
+        url: 'https://calendario-back.herokuapp.com/events',
         headers: {
             'Content-Type':'application/json',
             'Authorization': 'Bearer ' + token
@@ -73,7 +73,7 @@ scheduler.attachEvent("onEventChanged", function(id, ev){
     };
     json_to_send = JSON.stringify(json_to_send);
     $.ajax({
-        url: 'http://calendario-back.herokuapp.com/events/' + id,
+        url: 'https://calendario-back.herokuapp.com/events/' + id,
         headers: {
             'Content-Type':'application/json',
             'Authorization': 'Bearer ' + token
@@ -93,7 +93,7 @@ scheduler.attachEvent("onEventChanged", function(id, ev){
 
 scheduler.attachEvent("onEventDeleted", function(id, ev){
     $.ajax({
-        url: 'http://calendario-back.herokuapp.com/events/' + id,
+        url: 'https://calendario-back.herokuapp.com/events/' + id,
         headers: {
             'Content-Type':'application/json',
             'Authorization': 'Bearer ' + token
@@ -121,9 +121,11 @@ $('#logout_button').on('click', function(){
       method: 'POST',
       dataType: 'json',
       success: function(data) {
+        console.log(data)
         window.location = './index.html'
       },
       error: function(error_msg) {
+        console.log(error_msg)
         window.location = './index.html'
       }
     })
